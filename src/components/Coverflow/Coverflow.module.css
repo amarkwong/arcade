@@ -1,0 +1,10 @@
+.reflection {
+  position: relative;
+}
+
+.reflection img {
+  position: relative;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(to top, black 10%, transparent 50%);
+  mask-image: linear-gradient(to top, black 10%, transparent 50%);
+}

@@ -25,7 +25,18 @@ const movieCards= [
     movie: 'https://m.media-amazon.com/images/M/MV5BMjIyNTQ5NjQ1OV5BMl5BanBnXkFtZTcwODg1MDU4OA@@._V1_SX300.jpg',
     emoji: '️⛓️‍💥🤠',
     riddler: 'Feifan'
-  }
+  },
+  {
+    movie: 'https://m.media-amazon.com/images/M/MV5BMTY1NDI1Nzg4OF5BMl5BanBnXkFtZTgwNjYxOTg4ODE@._V1_SX300.jpg',
+    emoji: '🧙🐉',
+    riddler: 'Feifan'
+  }, 
+  {
+    movie: 'https://m.media-amazon.com/images/M/MV5BMDMxNDJkOTItOWIyNC00Y2QxLThiZWUtMWE1N2ExZDdjMGYwXkEyXkFqcGdeQXVyNTg5NjQxMjc@._V1_SX300.jpg',
+    emoji: '🐖🐍🕊️',
+    riddler: 'Feifan'
+  }, 
+
 ]
 
 
