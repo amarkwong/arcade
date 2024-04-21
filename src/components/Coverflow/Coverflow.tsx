@@ -9,7 +9,6 @@ interface CoverflowProps {
 
 const Coverflow: React.FC<CoverflowProps> = ({ covers }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  console.log('activeIndex',activeIndex)
   const coverflowContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
