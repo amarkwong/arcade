@@ -15,4 +15,18 @@ Default.args = {
   emoji: '👻🚍👨👨',
   movie: 'https://m.media-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg',
   riddler: 'Feifan',
+  solvedBy: [
+    {
+      name: 'Feifan',
+      id: '1',
+      color: 'red',
+      timestamp: new Date()
+    },
+    {
+      name: 'Harrison',
+      id: '2',
+      color: 'blue',
+      timestamp: new Date()
+    }
+  ]
 };

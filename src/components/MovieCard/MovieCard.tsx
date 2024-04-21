@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import "./MovieCard.module.css";
 import { motion } from "framer-motion";
 
 export type Solver = {
@@ -28,14 +27,6 @@ const FibFrac = (index: number, n: number) => {
   const denominator = FibSum[n - 1];
   return Math.round((numerator / denominator) * 100);
 };
-
-// const shake = {
-//   0: { transform: 'translateX(-10px)' },
-//   0.1: { transform: 'translateX(10px)' },
-//   0.2: { transform: 'translateX(-10px)' },
-//   0.3: { transform: 'translateX(10px)' },
-//   0.4: { transform: 'translateX(0px)' }
-// }
 
 const shake = {
   rotateY: [0, -10, 10, -10, 10, 0],
