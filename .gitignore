@@ -10,7 +10,12 @@
 /coverage
 
 # next.js
-/.next/
+/apps/web/.next/
+**/.next/
+
+# workspaces
+**/node_modules/
+**/.turbo/
 /out/
 
 # production
