@@ -21,7 +21,7 @@ const Arcade = () => {
     }
     setIsZoomed(true);
     setTimeout(() => {
-      router.push("/GameSelctor");
+      router.push("/GameSelector");
     }, 1000); // Adjust this delay to match the duration of your animation
   };
 

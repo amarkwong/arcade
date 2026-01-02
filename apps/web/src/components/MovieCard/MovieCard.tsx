@@ -11,9 +11,12 @@ export type Solver = {
 };
 export interface MovieCardProps {
   emoji: string;
-  movie: string;
+  poster: string;
   riddler: string;
+  unlocked: boolean;
   solvedBy?: Solver[];
+  rating?: number;
+  onRate?: (rating: number) => void;
 }
 
 const Fibbonaci = [1, 2, 3, 5, 8, 13, 21, 34];
@@ -37,37 +40,38 @@ const shake = {
 
 const MovieCard: React.FC<MovieCardProps> = ({
   emoji,
-  movie,
+  poster,
   riddler,
+  unlocked,
   solvedBy,
+  rating,
+  onRate,
 }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [flippable, setFlippable] = useState(solvedBy ? true : false);
+  const [viewIndex, setViewIndex] = useState(0); // 0 emoji, 1 poster, 2 info
   const [clicked, setClicked] = useState(false);
 
   const firstEightSolvers = solvedBy?.slice(0, 8);
 
   const handleCardClick = () => {
-    if (flippable) {
-      setIsFlipped(!isFlipped);
-    } else {
+    if (!unlocked) {
       setClicked(true);
-
-      setTimeout(() => {
-        setClicked(false);
-      }, 500);
+      setTimeout(() => setClicked(false), 500);
+      return;
     }
+    setViewIndex((prev) => (prev + 1) % 3);
   };
 
-  const background = firstEightSolvers
-    ? firstEightSolvers.length === 1
-      ? {
-          backgroundColor: firstEightSolvers[0].color,
-        }
+  const background = unlocked
+    ? firstEightSolvers
+      ? firstEightSolvers.length === 1
+        ? {
+            backgroundColor: firstEightSolvers[0].color,
+          }
+        : {
+            background: `linear-gradient(to bottom, ${firstEightSolvers?.map((solver, index) => `${solver.color} ${index === 0 ? 0 : FibFrac(index, firstEightSolvers.length)}%, ${solver.color} ${FibFrac(index + 1, firstEightSolvers.length)}%${index === firstEightSolvers.length - 1 ? ")" : ""}`)}`,
+          }
       : {
-          // * ensure we only display the color of the first 10 solvers
-          // background: `linear-gradient(to bottom, ${firstEightSolvers?.map((solver, index) => `${solver.color} ${index === 0 ? 0 : FibFrac(index+1, firstEightSolvers.length)}%, ${solver.color} ${FibFrac(index+1, firstEightSolvers.length)}%${index === firstEightSolvers.length - 1 ? ')' : ''}`)}`
-          background: `linear-gradient(to bottom, ${firstEightSolvers?.map((solver, index) => `${solver.color} ${index === 0 ? 0 : FibFrac(index, firstEightSolvers.length)}%, ${solver.color} ${FibFrac(index + 1, firstEightSolvers.length)}%${index === firstEightSolvers.length - 1 ? ")" : ""}`)}`,
+          background: "linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%)",
         }
     : {
         background: `url("/lock.svg")`,
@@ -77,6 +81,27 @@ const MovieCard: React.FC<MovieCardProps> = ({
         backgroundRepeat: "no-repeat",
       };
 
+  const infoFace = (
+    <div className="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-3 rounded-lg bg-slate-950/90 px-3 text-center text-slate-100 shadow-inner shadow-fuchsia-500/40" style={{ backfaceVisibility: "hidden", transform: "rotateY(0deg)" }}>
+      <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Created by {riddler}</p>
+      <p className="text-sm text-fuchsia-100">Rate this puzzle</p>
+      <div className="flex gap-2">
+        {[1, 2, 3, 4, 5].map((score) => (
+          <button
+            key={score}
+            onClick={(event) => {
+              event.stopPropagation();
+              onRate?.(score);
+            }}
+            className={`h-8 w-8 rounded-full border border-cyan-400/40 text-xs font-bold ${rating === score ? "bg-fuchsia-500 text-white" : "bg-slate-800 text-cyan-100"}`}
+          >
+            {score}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
       <motion.div
         onClick={handleCardClick}
@@ -84,10 +109,10 @@ const MovieCard: React.FC<MovieCardProps> = ({
         className="w-48 h-72"
       >
         <div
-          className={`w-full h-full transition-transform duration-500 ${isFlipped ? "rotate-y-180" : ""}`}
+          className={`w-full h-full transition-transform duration-500 ${viewIndex === 1 ? "rotate-y-180" : ""}`}
           style={{
             transformStyle: "preserve-3d",
-            transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+            transform: viewIndex === 1 ? "rotateY(180deg)" : "rotateY(0deg)",
           }}
         >
           {/* Front Side */}
@@ -96,11 +121,11 @@ const MovieCard: React.FC<MovieCardProps> = ({
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(0deg)",
-              zIndex: isFlipped ? 0 : 1,
+              zIndex: viewIndex === 1 ? 0 : 1,
               ...background,
             }}
           >
-            {emoji}
+            {viewIndex === 2 ? infoFace : emoji}
           </div>
 
           {/* Back Side */}
@@ -109,11 +134,11 @@ const MovieCard: React.FC<MovieCardProps> = ({
             style={{
               backfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
-              zIndex: isFlipped ? 1 : 0,
+              zIndex: viewIndex === 1 ? 1 : 0,
             }}
           >
             <Image
-              src={movie}
+              src={poster}
               alt="Movie"
               className="w-full h-full object-cover"
               width={150}

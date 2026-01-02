@@ -1,13 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from 'framer-motion';
-import styles from "./Coverflow.module.css";
+import { motion } from "framer-motion";
+import styles from "Coverflow.module.css";
+
+type Renderable = string | React.ReactNode;
 
 interface CoverflowProps {
-  covers: string[];
+  items?: Renderable[];
+  covers?: string[]; // backward compatibility
+  onActiveIndexChange?: (index: number) => void;
 }
 
-const Coverflow: React.FC<CoverflowProps> = ({ covers }) => {
+const Coverflow: React.FC<CoverflowProps> = ({ items, covers, onActiveIndexChange }) => {
+  const data = items ?? covers ?? [];
   const [activeIndex, setActiveIndex] = useState(0);
   const coverflowContainerRef = useRef<HTMLDivElement>(null);
 
@@ -15,7 +20,7 @@ const Coverflow: React.FC<CoverflowProps> = ({ covers }) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'ArrowRight':
-          setActiveIndex((prevIndex) => Math.min(prevIndex + 1, covers.length - 1));
+          setActiveIndex((prevIndex) => Math.min(prevIndex + 1, Math.max(data.length - 1, 0)));
           break;
         case 'ArrowLeft':
           setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
@@ -30,7 +35,7 @@ const Coverflow: React.FC<CoverflowProps> = ({ covers }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [covers.length]);
+  }, [data.length]);
 
 
   useEffect(() => {
@@ -47,7 +52,9 @@ const Coverflow: React.FC<CoverflowProps> = ({ covers }) => {
     }
   }, [activeIndex]);
 
-  console.log('covers',covers)
+  useEffect(() => {
+    onActiveIndexChange?.(activeIndex);
+  }, [activeIndex, onActiveIndexChange]);
 
   return (
     <>
@@ -58,8 +65,8 @@ const Coverflow: React.FC<CoverflowProps> = ({ covers }) => {
       <div key={index} className={styles.coverPlaceholder}></div>
     ))}
 
-    {covers.slice(Math.min(Math.max(0, activeIndex - 2),covers.length-3), activeIndex + 3).map((cover, index) => {
-   const originalIndex = Math.min(Math.max(0, activeIndex - 2), covers.length - 3) + index;
+    {data.slice(Math.min(Math.max(0, activeIndex - 2),Math.max(data.length - 3, 0)), activeIndex + 3).map((item, index) => {
+   const originalIndex = Math.min(Math.max(0, activeIndex - 2), Math.max(data.length - 3, 0)) + index;
    const distance = Math.abs(originalIndex - activeIndex);
    const rotation = originalIndex === activeIndex ? 0 :
      (originalIndex > activeIndex ? -50 - 4 * distance : 50 + 4 * distance);
@@ -77,29 +84,35 @@ const Coverflow: React.FC<CoverflowProps> = ({ covers }) => {
             onClick={() => setActiveIndex(originalIndex)}
           >
             <div className="relative">
-              <Image
-                src={cover}
-                alt="Movie Cover"
-                width={192}
-                height={288}
-                layout="responsive"
-              />
-              <div className={styles.reflection}>
-                <Image
-                  src={cover}
-                  width={192}
-                  height={288}
-                  alt="Movie Cover Reflection"
-                  className="absolute w-full h-full top-full transform -scale-y-100"
-                />
-              </div>
+              {typeof item === "string" ? (
+                <>
+                  <Image
+                    src={item}
+                    alt="Cover"
+                    width={192}
+                    height={288}
+                    layout="responsive"
+                  />
+                  <div className={styles.reflection}>
+                    <Image
+                      src={item}
+                      width={192}
+                      height={288}
+                      alt="Cover Reflection"
+                      className="absolute w-full h-full top-full transform -scale-y-100"
+                    />
+                  </div>
+                </>
+              ) : (
+                item
+              )}
             </div>
           </motion.div>
         );
       })}
 
           {/* Placeholders for activeIndex + 1 and activeIndex + 2 */}
-    {Array(Math.max(0, activeIndex + 3 - covers.length)).fill(null).map((_, index) => (
+    {Array(Math.max(0, activeIndex + 3 - data.length)).fill(null).map((_, index) => (
       <div key={index + 2} className={styles.coverPlaceholder}></div>
     ))}
     </div>

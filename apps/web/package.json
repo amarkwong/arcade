@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@arcade/filmoji": "file:../../packages/filmoji",
     "@neondatabase/serverless": "^0.9.3",
     "drizzle-orm": "^0.31.2",
     "framer-motion": "^11.0.24",
