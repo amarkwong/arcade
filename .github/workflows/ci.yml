@@ -27,7 +27,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Install deps (workspaces)
-        run: npm ci
+        run: npm install
 
       - name: Biome check
         run: npm run lint:biome
