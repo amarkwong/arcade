@@ -18,11 +18,7 @@ export type CreatePuzzleForm = {
 const formSchema = z.object({
 	emoji: z.string().min(1, "Emoji story is required"),
 	answer: z.string().min(1, "Answer is required"),
-	poster: z
-		.string()
-		.url("Poster must be a valid URL")
-		.optional()
-		.or(z.literal("")),
+	poster: z.string().url("Poster must be a valid URL").optional().or(z.literal("")),
 	creator: z.string().min(1, "Creator is required"),
 });
 
@@ -33,16 +29,9 @@ interface CreatePuzzleProps {
 	onSave: (payload: CreatePuzzleForm) => void;
 }
 
-const CreatePuzzle: React.FC<CreatePuzzleProps> = ({
-	isOpen,
-	defaultValues,
-	onClose,
-	onSave,
-}) => {
+const CreatePuzzle: React.FC<CreatePuzzleProps> = ({ isOpen, defaultValues, onClose, onSave }) => {
 	const dialogRef = useRef<HTMLDialogElement | null>(null);
-	const [posterUrl, setPosterUrl] = useState<string | null>(
-		defaultValues?.poster ?? null,
-	);
+	const [posterUrl, setPosterUrl] = useState<string | null>(defaultValues?.poster ?? null);
 	const [posterError, setPosterError] = useState<string | null>(null);
 	const [posterLoading, setPosterLoading] = useState(false);
 
@@ -96,12 +85,9 @@ const CreatePuzzle: React.FC<CreatePuzzleProps> = ({
 		try {
 			setPosterLoading(true);
 			setPosterError(null);
-			const response = await fetch(
-				`/api/movies?title=${encodeURIComponent(title)}`,
-				{
-					signal: controller.signal,
-				},
-			);
+			const response = await fetch(`/api/movies?title=${encodeURIComponent(title)}`, {
+				signal: controller.signal,
+			});
 			if (!response.ok) {
 				setPosterUrl(null);
 				setPosterError("Could not fetch poster");
@@ -145,16 +131,14 @@ const CreatePuzzle: React.FC<CreatePuzzleProps> = ({
 					<div className="flex items-center justify-between gap-4">
 						<h2 className="text-lg font-bold">Create a Filmoji</h2>
 						<button
+							type="button"
 							className="text-sm text-slate-300 hover:text-slate-100"
 							onClick={onClose}
 						>
 							X
 						</button>
 					</div>
-					<form
-						className="mt-5 flex flex-col gap-4"
-						onSubmit={handleSubmit(onSubmit)}
-					>
+					<form className="mt-5 flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
 						<InputField
 							autoFocus
 							name="emoji"
@@ -175,12 +159,8 @@ const CreatePuzzle: React.FC<CreatePuzzleProps> = ({
 						/>
 						<div className="space-y-2">
 							<p className="text-xs tracking-[0.2em] text-slate-300">Poster</p>
-							{posterLoading ? (
-								<p className="text-xs text-slate-300">Fetching poster…</p>
-							) : null}
-							{posterError ? (
-								<p className="text-xs text-rose-300">{posterError}</p>
-							) : null}
+							{posterLoading ? <p className="text-xs text-slate-300">Fetching poster…</p> : null}
+							{posterError ? <p className="text-xs text-rose-300">{posterError}</p> : null}
 							<div
 								className="relative w-full overflow-hidden rounded-lg bg-slate-900/60 shadow-md max-h-80 md:max-h-96"
 								style={{ aspectRatio: "2 / 3" }}
@@ -206,11 +186,7 @@ const CreatePuzzle: React.FC<CreatePuzzleProps> = ({
 							register={register}
 							error={errors.creator}
 						/>
-						<Button
-							type="submit"
-							disabled={isSubmitting}
-							className="mt-2 w-full"
-						>
+						<Button type="submit" disabled={isSubmitting} className="mt-2 w-full">
 							{isSubmitting ? "Saving..." : "Save Puzzle"}
 						</Button>
 					</form>

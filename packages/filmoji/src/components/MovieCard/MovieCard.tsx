@@ -35,13 +35,7 @@ const shake = {
 	transition: { duration: 0.5 },
 };
 
-const MovieCard: React.FC<MovieCardProps> = ({
-	emoji,
-	poster,
-	riddler,
-	unlocked,
-	solvedBy,
-}) => {
+const MovieCard: React.FC<MovieCardProps> = ({ emoji, poster, riddler, unlocked, solvedBy }) => {
 	const [viewIndex, setViewIndex] = useState(0);
 	const [clicked, setClicked] = useState(false);
 	const firstEightSolvers = solvedBy?.slice(0, 8);
@@ -80,11 +74,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
 			};
 
 	return (
-		<motion.div
-			onClick={handleCardClick}
-			animate={clicked ? shake : {}}
-			className="h-72 w-48"
-		>
+		<motion.div onClick={handleCardClick} animate={clicked ? shake : {}} className="h-72 w-48">
 			<div
 				className={`h-full w-full transition-transform duration-500 ${viewIndex === 1 ? "rotate-y-180" : ""}`}
 				style={{
@@ -103,9 +93,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
 				>
 					<div className="flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center text-slate-100">
 						<span className="text-5xl leading-none">{emoji}</span>
-						{unlocked ? (
-							<p className="text-sm text-cyan-100">Created by {riddler}</p>
-						) : null}
+						{unlocked ? <p className="text-sm text-cyan-100">Created by {riddler}</p> : null}
 					</div>
 				</div>
 

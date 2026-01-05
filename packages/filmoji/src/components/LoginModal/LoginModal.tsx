@@ -64,9 +64,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
 						✕
 					</button>
 				</div>
-				<p className="mt-2 text-sm text-slate-200">
-					Enter a player name to start
-				</p>
+				<p className="mt-2 text-sm text-slate-200">Enter a player name to start</p>
 				<form
 					className="mt-4 space-y-3"
 					onSubmit={(event) => {

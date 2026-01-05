@@ -25,29 +25,16 @@ export const GameSlot: React.FC<GameSlotProps> = ({
 		: "ring-2 ring-cyan-600/50";
 
 	return (
-		<div
-			role="button"
-			tabIndex={0}
+		<button
+			type="button"
 			data-href={href}
 			onClick={onActivate}
-			onKeyDown={(event) => {
-				if (event.key === "Enter" || event.key === " ") {
-					event.preventDefault();
-					onActivate?.();
-				}
-			}}
 			className={`${baseClass} ${accentClass}`}
 		>
 			<div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-amber-300 opacity-0 blur transition duration-300 group-hover:opacity-60 group-focus-visible:opacity-60" />
 			<div className="relative z-10 flex h-full flex-col items-center justify-between px-4 py-5 text-center">
 				<div className="relative h-36 w-32 drop-shadow-[0_0_18px_rgba(0,255,255,0.25)]">
-					<Image
-						src={src}
-						alt={caption}
-						fill
-						sizes="160px"
-						style={{ objectFit: "contain" }}
-					/>
+					<Image src={src} alt={caption} fill sizes="160px" style={{ objectFit: "contain" }} />
 				</div>
 				<div className="space-y-1">
 					<p className="text-sm font-semibold tracking-wide text-cyan-100 drop-shadow-[0_2px_10px_rgba(0,255,255,0.35)]">
@@ -56,6 +43,6 @@ export const GameSlot: React.FC<GameSlotProps> = ({
 				</div>
 			</div>
 			<div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,255,255,0.08),transparent_40%),radial-gradient(circle_at_80%_10%,rgba(255,0,204,0.08),transparent_35%)]" />
-		</div>
+		</button>
 	);
 };

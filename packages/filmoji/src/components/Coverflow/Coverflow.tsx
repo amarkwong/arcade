@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import type React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./Coverflow.module.css";
 
 type Renderable = string | React.ReactNode;
@@ -12,22 +12,32 @@ interface CoverflowProps {
 	onActiveIndexChange?: (index: number) => void;
 }
 
-const Coverflow: React.FC<CoverflowProps> = ({
-	items,
-	covers,
-	onActiveIndexChange,
-}) => {
+const Coverflow: React.FC<CoverflowProps> = ({ items, covers, onActiveIndexChange }) => {
 	const data = items ?? covers ?? [];
 	const [activeIndex, setActiveIndex] = useState(0);
 	const coverflowContainerRef = useRef<HTMLDivElement>(null);
+	const leftPlaceholderKeys = useMemo(
+		() =>
+			Array.from(
+				{ length: Math.max(0, 2 - activeIndex) },
+				(_, i) => `placeholder-left-${activeIndex - i - 1}`,
+			),
+		[activeIndex],
+	);
+	const rightPlaceholderKeys = useMemo(
+		() =>
+			Array.from(
+				{ length: Math.max(0, activeIndex + 3 - data.length) },
+				(_, i) => `placeholder-right-${activeIndex + i + 1}`,
+			),
+		[activeIndex, data.length],
+	);
 
 	useEffect(() => {
 		const handleKeyDown = (event: KeyboardEvent) => {
 			switch (event.key) {
 				case "ArrowRight":
-					setActiveIndex((prevIndex) =>
-						Math.min(prevIndex + 1, Math.max(data.length - 1, 0)),
-					);
+					setActiveIndex((prevIndex) => Math.min(prevIndex + 1, Math.max(data.length - 1, 0)));
 					break;
 				case "ArrowLeft":
 					setActiveIndex((prevIndex) => Math.max(prevIndex - 1, 0));
@@ -47,14 +57,10 @@ const Coverflow: React.FC<CoverflowProps> = ({
 	useEffect(() => {
 		if (coverflowContainerRef.current) {
 			const coverflowContainer = coverflowContainerRef.current;
-			const activeCover = coverflowContainer.children[activeIndex] as
-				| HTMLElement
-				| undefined;
+			const activeCover = coverflowContainer.children[activeIndex] as HTMLElement | undefined;
 			if (!activeCover) return;
 			const scrollLeft =
-				activeCover.offsetLeft -
-				coverflowContainer.offsetWidth / 2 +
-				activeCover.offsetWidth / 2;
+				activeCover.offsetLeft - coverflowContainer.offsetWidth / 2 + activeCover.offsetWidth / 2;
 			setTimeout(() => {
 				coverflowContainer.scrollTo({ left: scrollLeft, behavior: "smooth" });
 			}, 0);
@@ -72,11 +78,9 @@ const Coverflow: React.FC<CoverflowProps> = ({
 			style={{ perspective: 600 }}
 			id="coverflow"
 		>
-			{Array(Math.max(0, 2 - activeIndex))
-				.fill(null)
-				.map((_, index) => (
-					<div key={index} className={styles.coverPlaceholder} />
-				))}
+			{leftPlaceholderKeys.map((key) => (
+				<div key={key} className={styles.coverPlaceholder} />
+			))}
 
 			{data
 				.slice(
@@ -85,10 +89,7 @@ const Coverflow: React.FC<CoverflowProps> = ({
 				)
 				.map((item, index) => {
 					const originalIndex =
-						Math.min(
-							Math.max(0, activeIndex - 2),
-							Math.max(data.length - 3, 0),
-						) + index;
+						Math.min(Math.max(0, activeIndex - 2), Math.max(data.length - 3, 0)) + index;
 					const distance = Math.abs(originalIndex - activeIndex);
 					const rotation =
 						originalIndex === activeIndex
@@ -107,13 +108,7 @@ const Coverflow: React.FC<CoverflowProps> = ({
 							<div className="relative">
 								{typeof item === "string" ? (
 									<>
-										<Image
-											src={item}
-											alt="Cover"
-											width={192}
-											height={288}
-											layout="responsive"
-										/>
+										<Image src={item} alt="Cover" width={192} height={288} layout="responsive" />
 										<div className={styles.reflection}>
 											<Image
 												src={item}
@@ -132,11 +127,9 @@ const Coverflow: React.FC<CoverflowProps> = ({
 					);
 				})}
 
-			{Array(Math.max(0, activeIndex + 3 - data.length))
-				.fill(null)
-				.map((_, index) => (
-					<div key={index + 2} className={styles.coverPlaceholder} />
-				))}
+			{rightPlaceholderKeys.map((key) => (
+				<div key={key} className={styles.coverPlaceholder} />
+			))}
 		</div>
 	);
 };

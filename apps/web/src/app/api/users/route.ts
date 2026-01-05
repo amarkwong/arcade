@@ -5,19 +5,22 @@ import { type NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
+	let body: { name?: string };
 	try {
-		const { name } = (await request.json()) as { name?: string };
-		const trimmed = name?.trim();
-		if (!trimmed) {
-			return NextResponse.json({ error: "Name is required" }, { status: 400 });
-		}
+		body = (await request.json()) as { name?: string };
+	} catch (error) {
+		console.error("POST /api/users invalid JSON", error);
+		return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+	}
 
+	const trimmed = body.name?.trim();
+	if (!trimmed) {
+		return NextResponse.json({ error: "Name is required" }, { status: 400 });
+	}
+
+	try {
 		// Reuse existing user if same name exists; otherwise insert a new one.
-		const existing = await db
-			.select()
-			.from(users)
-			.where(eq(users.name, trimmed))
-			.limit(1);
+		const existing = await db.select().from(users).where(eq(users.name, trimmed)).limit(1);
 		if (existing.length > 0) {
 			return NextResponse.json({ id: existing[0].id, name: existing[0].name });
 		}
@@ -28,16 +31,11 @@ export async function POST(request: NextRequest) {
 			.returning({ id: users.id, name: users.name });
 
 		return NextResponse.json(inserted[0]);
-	} catch (error: any) {
+	} catch (error: unknown) {
+		const dbError = error as { code?: string };
 		// Handle unique constraint race condition: return existing if name already exists.
-		if (error?.code === "23505") {
-			const { name } = (await request.json()) as { name?: string };
-			const trimmed = name?.trim() ?? "";
-			const existing = await db
-				.select()
-				.from(users)
-				.where(eq(users.name, trimmed))
-				.limit(1);
+		if (dbError?.code === "23505") {
+			const existing = await db.select().from(users).where(eq(users.name, trimmed)).limit(1);
 			if (existing.length > 0) {
 				return NextResponse.json({
 					id: existing[0].id,

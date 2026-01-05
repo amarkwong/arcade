@@ -1,13 +1,11 @@
-import { expect, test } from "@playwright/test";
+import { type Page, expect, test } from "@playwright/test";
 
 const playerName = `Tester-${Date.now()}`;
 
-async function navigateToFilmoji(page: any) {
+async function navigateToFilmoji(page: Page) {
 	await page.goto("/");
 	// Arcade coin click triggers navigation
-	await page
-		.locator('[data-href="/GameSelector"], [data-href="/GameSelector"], div')
-		.first();
+	await page.locator('[data-href="/GameSelector"], [data-href="/GameSelector"], div').first();
 	// If arcade intro present, click coin area to transition
 	const coin = page.locator("." + "coins");
 	if (await coin.isVisible().catch(() => false)) {
@@ -24,9 +22,7 @@ async function navigateToFilmoji(page: any) {
 }
 
 test.describe("Filmoji happy flow", () => {
-	test("login, select game, create puzzle, validate, guess and unlock", async ({
-		page,
-	}) => {
+	test("login, select game, create puzzle, validate, guess and unlock", async ({ page }) => {
 		// Seed a logged-in user so we skip the login modal
 		await page.context().clearCookies();
 		await page.goto("/");
@@ -60,9 +56,7 @@ test.describe("Filmoji happy flow", () => {
 		// Poster auto-fetch (allow some time and assert preview container exists)
 		await page.getByLabel(/answer movie title/i).blur();
 		await expect(
-			page.getByText(
-				/Poster will appear|Fetching poster|Poster not found|Could not fetch poster/i,
-			),
+			page.getByText(/Poster will appear|Fetching poster|Poster not found|Could not fetch poster/i),
 		).toBeVisible({ timeout: 8000 });
 
 		// Save puzzle

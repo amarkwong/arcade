@@ -41,14 +41,7 @@ type ApiPuzzle = {
 };
 
 const randomColor = () => {
-	const palette = [
-		"#22d3ee",
-		"#a855f7",
-		"#f472b6",
-		"#f59e0b",
-		"#06b6d4",
-		"#10b981",
-	];
+	const palette = ["#22d3ee", "#a855f7", "#f472b6", "#f59e0b", "#06b6d4", "#10b981"];
 	return palette[Math.floor(Math.random() * palette.length)];
 };
 
@@ -113,14 +106,11 @@ const FilmojiGame: React.FC = () => {
 		(async () => {
 			try {
 				const response = await fetch("/api/puzzles", { cache: "no-store" });
-				if (!response.ok)
-					throw new Error(`Failed to load puzzles: ${response.status}`);
+				if (!response.ok) throw new Error(`Failed to load puzzles: ${response.status}`);
 				const data = (await response.json()) as { puzzles?: ApiPuzzle[] };
 				const fetched = (data.puzzles ?? []).map((p) => {
 					const base = toPuzzleStateFromApi(p);
-					const solvedByUser = p.solves?.some(
-						(s) => Number(s.userId) === Number(userId),
-					);
+					const solvedByUser = p.solves?.some((s) => Number(s.userId) === Number(userId));
 					return solvedByUser ? { ...base, unlocked: true } : base;
 				});
 				setPuzzles(fetched);
@@ -177,10 +167,7 @@ const FilmojiGame: React.FC = () => {
 			const data = (await response.json()) as { id: number; name: string };
 			setPlayerName(data.name);
 			setUserId(data.id);
-			localStorage.setItem(
-				"filmoji-user",
-				JSON.stringify({ id: data.id, name: data.name }),
-			);
+			localStorage.setItem("filmoji-user", JSON.stringify({ id: data.id, name: data.name }));
 			setIsNameModalOpen(false);
 		} catch (error) {
 			console.error("Failed to persist player", error);
@@ -193,8 +180,7 @@ const FilmojiGame: React.FC = () => {
 		setPuzzles((prev) =>
 			prev.map((puzzle) => {
 				if (puzzle.id !== id) return puzzle;
-				const isCorrect =
-					puzzle.answer.toLowerCase().trim() === guess.toLowerCase().trim();
+				const isCorrect = puzzle.answer.toLowerCase().trim() === guess.toLowerCase().trim();
 				if (!isCorrect) {
 					if (snackbarTimer.current) clearTimeout(snackbarTimer.current);
 					setSnackbar(
@@ -247,27 +233,25 @@ const FilmojiGame: React.FC = () => {
 				}),
 			});
 
-			let newPuzzle: PuzzleState | null = null;
+			let createdPuzzle: PuzzleState | null = null;
 			if (response.ok) {
 				const created = (await response.json()) as ApiPuzzle;
-				newPuzzle = toPuzzleStateFromApi(created);
+				createdPuzzle = toPuzzleStateFromApi(created);
 			}
 
-			if (!newPuzzle) {
-				newPuzzle = {
-					id: `local-${Date.now()}`,
-					emoji: payload.emoji,
-					answer: payload.answer,
-					poster: payload.poster,
-					creator: payload.creator,
-					unlocked: false,
-					solvedBy: [],
-					guess: "",
-				};
-			}
+			const puzzleToAdd: PuzzleState = createdPuzzle ?? {
+				id: `local-${Date.now()}`,
+				emoji: payload.emoji,
+				answer: payload.answer,
+				poster: payload.poster,
+				creator: payload.creator,
+				unlocked: false,
+				solvedBy: [],
+				guess: "",
+			};
 
 			setPuzzles((prev) => {
-				const next = [...prev, newPuzzle!];
+				const next = [...prev, puzzleToAdd];
 				setActiveIndex(next.length - 1);
 				return next;
 			});
@@ -301,10 +285,7 @@ const FilmojiGame: React.FC = () => {
 			<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:160px_160px] opacity-60" />
 
 			<div className="px-6 py-6">
-				<Header
-					playerName={playerName}
-					onAddPuzzle={() => setIsCreateOpen(true)}
-				/>
+				<Header playerName={playerName} onAddPuzzle={() => setIsCreateOpen(true)} />
 			</div>
 
 			<main
@@ -323,9 +304,7 @@ const FilmojiGame: React.FC = () => {
 							value={activePuzzle.guess ?? ""}
 							onChange={(value) =>
 								setPuzzles((prev) =>
-									prev.map((p) =>
-										p.id === activePuzzle.id ? { ...p, guess: value } : p,
-									),
+									prev.map((p) => (p.id === activePuzzle.id ? { ...p, guess: value } : p)),
 								)
 							}
 							onSubmit={(guess) => handleGuess(activePuzzle.id, guess)}

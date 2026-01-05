@@ -8,9 +8,7 @@ function SearchMovie() {
 	const handlePreview = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await fetch(
-				`http://localhost:3000/api/movie?movie=${movie}`,
-			);
+			const response = await fetch(`http://localhost:3000/api/movie?movie=${movie}`);
 			const { data } = await response.json();
 			setImageSrc(data.Poster);
 		} catch (error) {
@@ -27,7 +25,7 @@ function SearchMovie() {
 				placeholder="Movie"
 				className="input input-bordered w-full max-w-xs"
 			/>
-			<button className="btn glass" onClick={handlePreview}>
+			<button type="button" className="btn glass" onClick={handlePreview}>
 				Preview
 			</button>
 			{imageSrc && (

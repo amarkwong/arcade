@@ -18,15 +18,12 @@ export async function GET() {
 			.from(puzzleSolves)
 			.leftJoin(users, eq(users.id, puzzleSolves.userId));
 
-		const solvesByPuzzle = solves.reduce<Record<number, typeof solves>>(
-			(acc, solve) => {
-				const list = acc[solve.puzzleId] || [];
-				list.push(solve);
-				acc[solve.puzzleId] = list;
-				return acc;
-			},
-			{},
-		);
+		const solvesByPuzzle = solves.reduce<Record<number, typeof solves>>((acc, solve) => {
+			const list = acc[solve.puzzleId] || [];
+			list.push(solve);
+			acc[solve.puzzleId] = list;
+			return acc;
+		}, {});
 
 		const withSolves = results.map((puzzle) => ({
 			...puzzle,
@@ -36,24 +33,20 @@ export async function GET() {
 		return NextResponse.json({ puzzles: withSolves });
 	} catch (error) {
 		console.error("GET /api/puzzles error", error);
-		return NextResponse.json(
-			{ error: "Failed to fetch puzzles" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Failed to fetch puzzles" }, { status: 500 });
 	}
 }
 
 export async function POST(request: NextRequest) {
 	try {
-		const { movieName, creator, posterUrl, puzzle, answer, rating } =
-			(await request.json()) as {
-				movieName?: string;
-				creator?: string;
-				posterUrl?: string;
-				puzzle?: string;
-				answer?: string;
-				rating?: number | null;
-			};
+		const { movieName, creator, posterUrl, puzzle, answer, rating } = (await request.json()) as {
+			movieName?: string;
+			creator?: string;
+			posterUrl?: string;
+			puzzle?: string;
+			answer?: string;
+			rating?: number | null;
+		};
 
 		const movie = movieName?.trim();
 		const creatorName = creator?.trim();
@@ -67,16 +60,9 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		const normalizedRating =
-			typeof rating === "number" ? Math.round(rating) : null;
-		if (
-			normalizedRating !== null &&
-			(normalizedRating < 1 || normalizedRating > 5)
-		) {
-			return NextResponse.json(
-				{ error: "rating must be between 1 and 5" },
-				{ status: 400 },
-			);
+		const normalizedRating = typeof rating === "number" ? Math.round(rating) : null;
+		if (normalizedRating !== null && (normalizedRating < 1 || normalizedRating > 5)) {
+			return NextResponse.json({ error: "rating must be between 1 and 5" }, { status: 400 });
 		}
 
 		const inserted = await db
@@ -94,9 +80,6 @@ export async function POST(request: NextRequest) {
 		return NextResponse.json(inserted[0], { status: 201 });
 	} catch (error) {
 		console.error("POST /api/puzzles error", error);
-		return NextResponse.json(
-			{ error: "Failed to create puzzle" },
-			{ status: 500 },
-		);
+		return NextResponse.json({ error: "Failed to create puzzle" }, { status: 500 });
 	}
 }

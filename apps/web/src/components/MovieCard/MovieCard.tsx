@@ -87,13 +87,12 @@ const MovieCard: React.FC<MovieCardProps> = ({
 			className="absolute inset-0 flex h-full w-full flex-col items-center justify-center gap-3 rounded-lg bg-slate-950/90 px-3 text-center text-slate-100 shadow-inner shadow-fuchsia-500/40"
 			style={{ backfaceVisibility: "hidden", transform: "rotateY(0deg)" }}
 		>
-			<p className="text-xs uppercase tracking-[0.2em] text-cyan-200">
-				Created by {riddler}
-			</p>
+			<p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Created by {riddler}</p>
 			<p className="text-sm text-fuchsia-100">Rate this puzzle</p>
 			<div className="flex gap-2">
 				{[1, 2, 3, 4, 5].map((score) => (
 					<button
+						type="button"
 						key={score}
 						onClick={(event) => {
 							event.stopPropagation();
@@ -109,11 +108,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
 	);
 
 	return (
-		<motion.div
-			onClick={handleCardClick}
-			animate={clicked ? shake : {}}
-			className="w-48 h-72"
-		>
+		<motion.div onClick={handleCardClick} animate={clicked ? shake : {}} className="w-48 h-72">
 			<div
 				className={`w-full h-full transition-transform duration-500 ${viewIndex === 1 ? "rotate-y-180" : ""}`}
 				style={{

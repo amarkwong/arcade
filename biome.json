@@ -11,9 +11,19 @@
 		"enabled": true
 	},
 	"files": {
+		"include": [
+			"apps/web/src/**",
+			"apps/web/tests/**",
+			"apps/web/drizzle.config.ts",
+			"apps/web/playwright.config.ts",
+			"packages/**",
+			"*.json",
+			"*.md"
+		],
 		"ignore": [
 			"**/node_modules/**",
 			"**/.next/**",
+			"apps/web/.next/**",
 			"**/.vercel/**",
 			"**/.turbo/**",
 			"**/build/**",
@@ -24,6 +34,7 @@
 	},
 	"vcs": {
 		"enabled": true,
-		"client": "git"
+		"clientKind": "git",
+		"useIgnoreFile": true
 	}
 }

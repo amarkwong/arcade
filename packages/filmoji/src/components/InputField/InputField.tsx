@@ -29,9 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({
 
 	return (
 		<label className="block space-y-2 text-sm font-semibold text-cyan-100/90">
-			<span className="block text-xs tracking-[0.2em] text-cyan-300/80">
-				{label}
-			</span>
+			<span className="block text-xs tracking-[0.2em] text-cyan-300/80">{label}</span>
 			<input
 				type={inputType}
 				className="w-full rounded-lg border border-cyan-400/40 bg-slate-800 px-3 py-2 text-slate-100 shadow-inner shadow-black/20 focus:border-fuchsia-400 focus:outline-none"
@@ -39,9 +37,7 @@ const InputField: React.FC<InputFieldProps> = ({
 				{...register(name)}
 				onBlur={onBlur}
 			/>
-			{error ? (
-				<span className="block text-xs text-rose-300">{error.message}</span>
-			) : null}
+			{error ? <span className="block text-xs text-rose-300">{error.message}</span> : null}
 		</label>
 	);
 };

@@ -14,8 +14,7 @@ const Arcade = () => {
 	const handleCoinClick = () => {
 		if (arcadeRef.current) {
 			const { height } = arcadeRef.current.getBoundingClientRect();
-			const viewportHeight =
-				window.innerHeight || document.documentElement.clientHeight;
+			const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
 			const growToFit = (viewportHeight * 0.98) / height;
 			const desiredScale = Math.min(3, Math.max(1.4, growToFit));
 			setTargetScale(desiredScale);
@@ -81,7 +80,18 @@ const Arcade = () => {
 						</div>
 						<div className={styles["block-2"]}>
 							<div className={styles.speakers} />
-							<div className={styles.coins} onClick={handleCoinClick} />
+							<div
+								className={styles.coins}
+								onClick={handleCoinClick}
+								onKeyDown={(event) => {
+									if (event.key === "Enter" || event.key === " ") {
+										event.preventDefault();
+										handleCoinClick();
+									}
+								}}
+								role="button"
+								tabIndex={0}
+							/>
 						</div>
 						<div className={styles["block-3"]} />
 					</div>

@@ -1,0 +1,9 @@
+**/.next/**
+**/.vercel/**
+**/.turbo/**
+**/build/**
+**/dist/**
+**/coverage/**
+**/.cache/**
+**/node_modules/**
+apps/web/.next/**

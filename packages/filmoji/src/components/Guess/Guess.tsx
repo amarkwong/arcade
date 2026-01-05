@@ -19,9 +19,7 @@ const Guess: React.FC<GuessProps> = ({ value, onChange, onSubmit }) => {
 					onSubmit(guess);
 				}}
 			>
-				<p className="text-lg font-semibold text-cyan-100/90">
-					Guess what's the movie name?
-				</p>
+				<p className="text-lg font-semibold text-cyan-100/90">Guess what's the movie name?</p>
 				<input
 					name="guess"
 					value={value}

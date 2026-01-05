@@ -3,9 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
-	const title =
-		request.nextUrl.searchParams.get("title") ||
-		request.nextUrl.searchParams.get("q");
+	const title = request.nextUrl.searchParams.get("title") || request.nextUrl.searchParams.get("q");
 	const apiKey = process.env.OMDBAPI_KEY;
 	const region = request.nextUrl.searchParams.get("r") || "short"; // short/full plot toggle if ever needed
 
@@ -29,10 +27,7 @@ export async function GET(request: NextRequest) {
 	try {
 		const res = await fetch(url, { cache: "no-store" });
 		if (!res.ok) {
-			return NextResponse.json(
-				{ error: `Upstream error: ${res.status}` },
-				{ status: 502 },
-			);
+			return NextResponse.json({ error: `Upstream error: ${res.status}` }, { status: 502 });
 		}
 		const data = await res.json();
 
