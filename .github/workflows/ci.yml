@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    env:
+      NEXT_TELEMETRY_DISABLED: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install deps (workspaces)
+        run: npm ci
+
+      - name: Biome check
+        run: npm run lint:biome
+
+      - name: Lint web
+        run: npm run lint --workspace web
+
+      - name: Build web
+        run: npm run build --workspace web
+
+      # Uncomment to run Playwright e2e once they are stable/optional
+      # - name: Install Playwright browsers
+      #   run: npx playwright install --with-deps
+      # - name: E2E tests
+      #   run: npm run test:e2e --workspace web

@@ -24,6 +24,9 @@
 # misc
 .DS_Store
 *.pem
+.env
+packages/filmoji/.env
+packages/filmoji/.env.local
 
 # debug
 npm-debug.log*

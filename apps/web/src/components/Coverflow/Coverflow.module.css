@@ -1,16 +1,16 @@
 .coverPlaceholder {
-  width: 150px; /* adjust to match cover width */
-  height: 300px; /* adjust to match cover height */
+	width: 150px; /* adjust to match cover width */
+	height: 300px; /* adjust to match cover height */
 }
 
 .reflection {
-  position: relative;
+	position: relative;
 }
 
 .reflection img {
-  position: relative;
-  z-index: 0;
-  -webkit-mask-image: linear-gradient(to top, black 10%, transparent 50%);
-  mask-image: linear-gradient(to top, black 10%, transparent 50%);
-  transition: all 0.5s ease; /* Add this line */
+	position: relative;
+	z-index: 0;
+	-webkit-mask-image: linear-gradient(to top, black 10%, transparent 50%);
+	mask-image: linear-gradient(to top, black 10%, transparent 50%);
+	transition: all 0.5s ease; /* Add this line */
 }

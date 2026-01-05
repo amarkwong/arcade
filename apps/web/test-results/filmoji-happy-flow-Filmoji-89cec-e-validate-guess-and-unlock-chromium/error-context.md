@@ -1,0 +1,52 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "Back to Arcade" [ref=e6] [cursor=pointer]:
+          - /url: /GameSelector
+        - button "Create your own puzzle" [ref=e8] [cursor=pointer]: +
+        - generic [ref=e11]: T
+      - heading "Guess the movie by Emoji" [level=2] [ref=e13]
+    - main [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e22]:
+          - generic [ref=e25]: 🏃‍♂️🌳🏃‍♂️
+          - img [ref=e27]
+        - generic [ref=e32]:
+          - generic [ref=e35]: 🧊🛳️
+          - img [ref=e37]
+        - generic [ref=e42]:
+          - generic [ref=e45]: 🗡️🎠⚡️👺
+          - img [ref=e47]
+    - dialog [ref=e48]:
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - heading "Create a Filmoji" [level=2] [ref=e52]
+          - button "X" [ref=e53] [cursor=pointer]
+        - generic [ref=e54]:
+          - generic [ref=e55]:
+            - generic [ref=e56]: Emoji story
+            - textbox "Emoji story" [ref=e57]:
+              - /placeholder: use pure emoji to describe this movie (e.g., 👨‍🚀🌕 for interstellar)
+              - text: 👨‍🚀🌕
+          - generic [ref=e58]:
+            - generic [ref=e59]: Answer
+            - textbox "Answer Answer is required" [active] [ref=e60]:
+              - /placeholder: Movie title
+            - generic [ref=e61]: Answer is required
+          - generic [ref=e62]:
+            - paragraph [ref=e63]: Poster
+            - generic [ref=e65]: Poster will appear after fetching
+          - generic [ref=e66]:
+            - generic [ref=e67]: Creator name
+            - textbox "Creator name Creator is required" [ref=e68]:
+              - /placeholder: Your name
+            - generic [ref=e69]: Creator is required
+          - button "Save Puzzle" [ref=e70] [cursor=pointer]
+  - button "Open Next.js Dev Tools" [ref=e76] [cursor=pointer]:
+    - img [ref=e77]
+  - alert [ref=e80]
+```

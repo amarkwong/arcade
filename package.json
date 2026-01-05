@@ -1,18 +1,20 @@
 {
-  "name": "arcade",
-  "version": "0.1.0",
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "scripts": {
-    "dev": "npm run dev --workspace web",
-    "build": "npm run build --workspace web",
-    "start": "npm run start --workspace web",
-    "lint": "npm run lint --workspace web"
-  },
-  "dependencies": {
-    "next": "^15.5.9"
-  }
+	"name": "arcade",
+	"version": "0.1.0",
+	"private": true,
+	"workspaces": ["apps/*", "packages/*"],
+	"scripts": {
+		"dev": "npm run dev --workspace web",
+		"build": "npm run build --workspace web",
+		"start": "npm run start --workspace web",
+		"lint": "npm run lint --workspace web",
+		"lint:biome": "biome check .",
+		"lint:biome:fix": "biome check --fix --unsafe ."
+	},
+	"dependencies": {
+		"next": "^15.5.9"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4"
+	}
 }

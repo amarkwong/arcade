@@ -1,174 +1,161 @@
 {
-  "id": "eac7ce08-4eaf-46b0-a42a-6510fbc0159a",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "7",
-  "dialect": "postgresql",
-  "tables": {
-    "public.puzzle_solves": {
-      "name": "puzzle_solves",
-      "schema": "",
-      "columns": {
-        "user_id": {
-          "name": "user_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "puzzle_id": {
-          "name": "puzzle_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "rating": {
-          "name": "rating",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "puzzle_solves_user_id_users_id_fk": {
-          "name": "puzzle_solves_user_id_users_id_fk",
-          "tableFrom": "puzzle_solves",
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "puzzle_solves_puzzle_id_puzzles_id_fk": {
-          "name": "puzzle_solves_puzzle_id_puzzles_id_fk",
-          "tableFrom": "puzzle_solves",
-          "tableTo": "puzzles",
-          "columnsFrom": [
-            "puzzle_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "puzzle_solves_user_id_puzzle_id_pk": {
-          "name": "puzzle_solves_user_id_puzzle_id_pk",
-          "columns": [
-            "user_id",
-            "puzzle_id"
-          ]
-        }
-      },
-      "uniqueConstraints": {}
-    },
-    "public.puzzles": {
-      "name": "puzzles",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "movie_name": {
-          "name": "movie_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "creator": {
-          "name": "creator",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "poster_url": {
-          "name": "poster_url",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "puzzle": {
-          "name": "puzzle",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "answer": {
-          "name": "answer",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "rating": {
-          "name": "rating",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.users": {
-      "name": "users",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "users_name_unique": {
-          "name": "users_name_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "name"
-          ]
-        }
-      }
-    }
-  },
-  "enums": {},
-  "schemas": {},
-  "_meta": {
-    "columns": {},
-    "schemas": {},
-    "tables": {}
-  }
+	"id": "eac7ce08-4eaf-46b0-a42a-6510fbc0159a",
+	"prevId": "00000000-0000-0000-0000-000000000000",
+	"version": "7",
+	"dialect": "postgresql",
+	"tables": {
+		"public.puzzle_solves": {
+			"name": "puzzle_solves",
+			"schema": "",
+			"columns": {
+				"user_id": {
+					"name": "user_id",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"puzzle_id": {
+					"name": "puzzle_id",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"rating": {
+					"name": "rating",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": false
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {
+				"puzzle_solves_user_id_users_id_fk": {
+					"name": "puzzle_solves_user_id_users_id_fk",
+					"tableFrom": "puzzle_solves",
+					"tableTo": "users",
+					"columnsFrom": ["user_id"],
+					"columnsTo": ["id"],
+					"onDelete": "cascade",
+					"onUpdate": "no action"
+				},
+				"puzzle_solves_puzzle_id_puzzles_id_fk": {
+					"name": "puzzle_solves_puzzle_id_puzzles_id_fk",
+					"tableFrom": "puzzle_solves",
+					"tableTo": "puzzles",
+					"columnsFrom": ["puzzle_id"],
+					"columnsTo": ["id"],
+					"onDelete": "cascade",
+					"onUpdate": "no action"
+				}
+			},
+			"compositePrimaryKeys": {
+				"puzzle_solves_user_id_puzzle_id_pk": {
+					"name": "puzzle_solves_user_id_puzzle_id_pk",
+					"columns": ["user_id", "puzzle_id"]
+				}
+			},
+			"uniqueConstraints": {}
+		},
+		"public.puzzles": {
+			"name": "puzzles",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"movie_name": {
+					"name": "movie_name",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"creator": {
+					"name": "creator",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"poster_url": {
+					"name": "poster_url",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"puzzle": {
+					"name": "puzzle",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"answer": {
+					"name": "answer",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"rating": {
+					"name": "rating",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		},
+		"public.users": {
+			"name": "users",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"name": {
+					"name": "name",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {
+				"users_name_unique": {
+					"name": "users_name_unique",
+					"nullsNotDistinct": false,
+					"columns": ["name"]
+				}
+			}
+		}
+	},
+	"enums": {},
+	"schemas": {},
+	"_meta": {
+		"columns": {},
+		"schemas": {},
+		"tables": {}
+	}
 }

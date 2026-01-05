@@ -3,35 +3,35 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "pacman";
-  src: url("https://raw.githubusercontent.com/maxi83c/Fonts/main/pacman.ttf");
+	font-family: "pacman";
+	src: url("https://raw.githubusercontent.com/maxi83c/Fonts/main/pacman.ttf");
 }
 
 :root {
-  --foreground-rgb: 10, 10, 10;
-  --background-rgb: 0, 0, 0;
+	--foreground-rgb: 10, 10, 10;
+	--background-rgb: 0, 0, 0;
 }
 
 html {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 html,
 body {
-  min-height: 100%;
-  margin: 0;
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+	min-height: 100%;
+	margin: 0;
+	color: rgb(var(--foreground-rgb));
+	background: rgb(var(--background-rgb));
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+	.text-balance {
+		text-wrap: balance;
+	}
 }
