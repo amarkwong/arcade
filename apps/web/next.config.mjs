@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	transpilePackages: ["@arcade/filmoji"],
+	devIndicators: {
+		// Hide the floating Next.js dev overlay icon
+		buildActivity: false,
+	},
 	images: {
 		remotePatterns: [
 			{

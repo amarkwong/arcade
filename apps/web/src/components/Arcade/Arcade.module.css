@@ -10,20 +10,22 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 50px 0;
-  background-color: rgb(var(--background-rgb));
-  overflow: visible;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding: 32px 0;
+  /* Restore the original sky-blue backdrop used before the global background change */
+  background-color: #a1d6e6;
+  overflow: hidden;
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
 }
 
 .arcade-container {
   box-sizing: border-box;
-  background-color: rgb(var(--background-rgb));
+  background-color: #a1d6e6;
   position: relative;
   display: flex;
   justify-content: center;
+  width: 100%;
   z-index: 0;
 }
 .arcade-container .arcade-wall {
@@ -43,10 +45,6 @@
   left: 6px;
   top: 28px;
   background: #0096b6;
-  border-top: 8px solid #264042;
-  border-left: 4px solid #264042;
-  border-top-left-radius: 12px;
-  transform: rotate(-19deg);
 }
 .arcade-container .arcade-wall .block-2 {
   position: relative;
@@ -814,11 +812,7 @@
     transform: rotate(0);
   }
 }
-@-webkit-keyframes move-dots {
-  to {
-    background-position: 0px center;
-  }
-}
+
 @keyframes move-dots {
   to {
     background-position: 0px center;

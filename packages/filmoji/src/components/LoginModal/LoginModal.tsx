@@ -9,9 +9,10 @@ interface LoginModalProps {
   playerName: string;
   onPlayerNameChange: (name: string) => void;
   onSubmit: () => void;
+  onClose: () => void;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ isOpen, gameName, playerName, onPlayerNameChange, onSubmit }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ isOpen, gameName, playerName, onPlayerNameChange, onSubmit, onClose }) => {
   const [mounted, setMounted] = useState(false);
   const [container, setContainer] = useState<HTMLElement | null>(null);
   const createdRef = useRef(false);
@@ -42,9 +43,19 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, gameName, playerName, o
   if (!mounted || !container || !isOpen) return null;
 
   return createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
       <div className="mx-4 w-full max-w-sm rounded-2xl bg-slate-900 p-6 text-slate-50 shadow-xl shadow-cyan-500/30">
-        <h2 className="text-xl font-bold">Welcome to {gameName}</h2>
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-xl font-bold">Welcome to {gameName}</h2>
+          <button
+            type="button"
+            aria-label="Close login"
+            className="rounded-full px-2 py-1 text-sm text-slate-300 hover:text-slate-100"
+            onClick={onClose}
+          >
+            ✕
+          </button>
+        </div>
         <p className="mt-2 text-sm text-slate-200">Enter a player name to start</p>
         <form
           className="mt-4 space-y-3"
