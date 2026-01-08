@@ -13,6 +13,7 @@ concurrency:
 jobs:
   web:
     runs-on: ubuntu-latest
+    environment: production
     env:
       NEXT_TELEMETRY_DISABLED: 1
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
