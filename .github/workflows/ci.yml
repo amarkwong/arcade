@@ -52,19 +52,33 @@ jobs:
     needs: web
     environment:
       name: prod
-      url: ${{ steps.vercel_deploy.outputs.deployment-url }}
+      url: ${{ steps.vercel_deploy.outputs.url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Vercel CLI
+        run: npm install -g vercel@latest
+
       - name: Vercel Deploy
         id: vercel_deploy
-        uses: vercel/actions/deploy@v1
-        with:
-          token: ${{ secrets.VERCEL_TOKEN }}
-          org-id: ${{ secrets.VERCEL_ORG_ID }}
-          project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          production: ${{ github.ref == 'refs/heads/main' }}
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           OMDBAPI_KEY: ${{ secrets.OMDBAPI_KEY }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "Missing Vercel secrets (VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID)" >&2
+            exit 1
+          fi
+
+          if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes --prod --cwd apps/web) || exit 1
+          else
+            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes --cwd apps/web) || exit 1
+          fi
+
+          echo "Deployment URL: $DEPLOY_URL"
+          echo "url=$DEPLOY_URL" >> "$GITHUB_OUTPUT"
