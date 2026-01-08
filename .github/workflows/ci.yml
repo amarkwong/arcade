@@ -74,10 +74,11 @@ jobs:
             exit 1
           fi
 
+          # Run from repo root; Vercel project settings already contain the root directory.
           if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
-            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes --prod --cwd apps/web) || exit 1
+            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes --prod) || exit 1
           else
-            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes --cwd apps/web) || exit 1
+            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes) || exit 1
           fi
 
           echo "Deployment URL: $DEPLOY_URL"
