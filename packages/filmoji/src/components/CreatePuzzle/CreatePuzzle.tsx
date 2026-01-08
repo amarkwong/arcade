@@ -26,7 +26,7 @@ interface CreatePuzzleProps {
 	isOpen: boolean;
 	defaultValues?: CreatePuzzleForm;
 	onClose: () => void;
-	onSave: (payload: CreatePuzzleForm) => void;
+	onSave: (payload: CreatePuzzleForm) => void | Promise<void>;
 }
 
 const CreatePuzzle: React.FC<CreatePuzzleProps> = ({ isOpen, defaultValues, onClose, onSave }) => {

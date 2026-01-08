@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Coverflow from "./components/Coverflow/Coverflow";
-import CreatePuzzle from "./components/CreatePuzzle/CreatePuzzle";
+import CreatePuzzle, { type CreatePuzzleForm } from "./components/CreatePuzzle/CreatePuzzle";
 import Guess from "./components/Guess/Guess";
 import Header from "./components/Header/Header";
 import LoginModal from "./components/LoginModal/LoginModal";
@@ -214,20 +214,16 @@ const FilmojiGame: React.FC = () => {
 		);
 	};
 
-	const handleCreate = async (payload: {
-		emoji: string;
-		answer: string;
-		poster: string;
-		creator: string;
-	}) => {
+	const handleCreate = async (payload: CreatePuzzleForm) => {
 		try {
+			const poster = payload.poster ?? "";
 			const response = await fetch("/api/puzzles", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
 					movieName: payload.answer,
 					creator: payload.creator,
-					posterUrl: payload.poster,
+					posterUrl: poster,
 					puzzle: payload.emoji,
 					answer: payload.answer,
 				}),
@@ -243,7 +239,7 @@ const FilmojiGame: React.FC = () => {
 				id: `local-${Date.now()}`,
 				emoji: payload.emoji,
 				answer: payload.answer,
-				poster: payload.poster,
+				poster,
 				creator: payload.creator,
 				unlocked: false,
 				solvedBy: [],

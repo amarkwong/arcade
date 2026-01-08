@@ -57,7 +57,8 @@ const Coverflow: React.FC<CoverflowProps> = ({ items, covers, onActiveIndexChang
 	useEffect(() => {
 		if (coverflowContainerRef.current) {
 			const coverflowContainer = coverflowContainerRef.current;
-			const activeCover = coverflowContainer.children[activeIndex];
+			const activeCover = coverflowContainer.children[activeIndex] as HTMLElement | undefined;
+			if (!activeCover) return;
 			const scrollLeft =
 				activeCover.offsetLeft - coverflowContainer.offsetWidth / 2 + activeCover.offsetWidth / 2;
 			setTimeout(() => {

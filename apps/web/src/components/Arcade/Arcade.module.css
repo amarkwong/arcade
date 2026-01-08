@@ -424,8 +424,9 @@
 	left: 50%;
 	transform: translatex(-50%) rotate(45deg);
 	background-color: #ff5a59;
-	background-image: radial-gradient(24px 16px, #ffa6a6, #ffa6a6 25%, transparent 25%),
-		radial-gradient(7px 7px, #ffa6a6, #ffa6a6 25%, transparent 25%);
+	background-image:
+		radial-gradient(ellipse 24px 16px at center, #ffa6a6, #ffa6a6 25%, transparent 25%),
+		radial-gradient(ellipse 7px 7px at center, #ffa6a6, #ffa6a6 25%, transparent 25%);
 	background-size: 2.1em;
 	background-position: -6px -5px, 3px 0px;
 	background-repeat: no-repeat;

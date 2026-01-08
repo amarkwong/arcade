@@ -4,8 +4,12 @@ import { type NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(_request: NextRequest, { params }: { params: { id: string } }) {
-	const puzzleId = Number(params.id);
+export async function GET(
+	_request: NextRequest,
+	{ params }: { params: Promise<{ id: string }> },
+) {
+	const { id } = await params;
+	const puzzleId = Number(id);
 	if (Number.isNaN(puzzleId)) {
 		return NextResponse.json({ error: "Invalid puzzle id" }, { status: 400 });
 	}
@@ -29,8 +33,12 @@ export async function GET(_request: NextRequest, { params }: { params: { id: str
 	}
 }
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
-	const puzzleId = Number(params.id);
+export async function POST(
+	request: NextRequest,
+	{ params }: { params: Promise<{ id: string }> },
+) {
+	const { id } = await params;
+	const puzzleId = Number(id);
 	if (Number.isNaN(puzzleId)) {
 		return NextResponse.json({ error: "Invalid puzzle id" }, { status: 400 });
 	}

@@ -3,9 +3,9 @@ import Image from "next/image";
 import { useState } from "react";
 function SearchMovie() {
 	const [movie, setMovie] = useState("");
-	const [imageSrc, setImageSrc] = useState(null);
+	const [imageSrc, setImageSrc] = useState<string | null>(null);
 
-	const handlePreview = async (e) => {
+	const handlePreview = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		try {
 			const response = await fetch(`http://localhost:3000/api/movie?movie=${movie}`);
