@@ -76,9 +76,17 @@ jobs:
 
           # Run from repo root; Vercel project settings already contain the root directory.
           if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
-            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes --prod) || exit 1
+            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes --prod \
+              --env DATABASE_URL="$DATABASE_URL" \
+              --env OMDBAPI_KEY="$OMDBAPI_KEY" \
+              --build-env DATABASE_URL="$DATABASE_URL" \
+              --build-env OMDBAPI_KEY="$OMDBAPI_KEY") || exit 1
           else
-            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes) || exit 1
+            DEPLOY_URL=$(vercel --token "$VERCEL_TOKEN" --yes \
+              --env DATABASE_URL="$DATABASE_URL" \
+              --env OMDBAPI_KEY="$OMDBAPI_KEY" \
+              --build-env DATABASE_URL="$DATABASE_URL" \
+              --build-env OMDBAPI_KEY="$OMDBAPI_KEY") || exit 1
           fi
 
           echo "Deployment URL: $DEPLOY_URL"
