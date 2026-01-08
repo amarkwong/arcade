@@ -429,8 +429,7 @@
 			#ffa6a6,
 			#ffa6a6 25%,
 			transparent 25%
-		),
-		radial-gradient(ellipse 7px 7px at center, #ffa6a6, #ffa6a6 25%, transparent 25%);
+		), radial-gradient(ellipse 7px 7px at center, #ffa6a6, #ffa6a6 25%, transparent 25%);
 	background-size: 2.1em;
 	background-position: -6px -5px, 3px 0px;
 	background-repeat: no-repeat;
