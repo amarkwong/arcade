@@ -127,7 +127,7 @@ const CreatePuzzle: React.FC<CreatePuzzleProps> = ({ isOpen, defaultValues, onCl
 			}}
 		>
 			<div className="flex min-h-screen w-screen items-center justify-center p-6">
-				<div className="w-full max-w-lg rounded-2xl bg-slate-900 p-6 text-slate-50 shadow-xl shadow-cyan-500/30 max-h-[90vh] overflow-y-auto">
+				<div className="w-full max-w-lg rounded-2xl bg-slate-800 p-6 text-slate-50 shadow-xl shadow-sky-500/15 max-h-[90vh] overflow-y-auto">
 					<div className="flex items-center justify-between gap-4">
 						<h2 className="text-lg font-bold">Create a Filmoji</h2>
 						<button

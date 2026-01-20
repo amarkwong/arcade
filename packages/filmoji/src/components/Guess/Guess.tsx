@@ -8,7 +8,7 @@ interface GuessProps {
 
 const Guess: React.FC<GuessProps> = ({ value, onChange, onSubmit }) => {
 	return (
-		<div className="mx-auto w-full max-w-lg rounded-md border border-cyan-500/20 bg-slate-900/75 p-7 shadow-md">
+		<div className="mx-auto w-full max-w-lg rounded-md border border-sky-400/20 bg-slate-700/75 p-7 shadow-md">
 			<form
 				className="flex flex-col gap-4"
 				onSubmit={(event) => {
@@ -19,17 +19,17 @@ const Guess: React.FC<GuessProps> = ({ value, onChange, onSubmit }) => {
 					onSubmit(guess);
 				}}
 			>
-				<p className="text-lg font-semibold text-cyan-100/90">Guess what's the movie name?</p>
+				<p className="text-lg font-semibold text-sky-100/90">Guess what's the movie name?</p>
 				<input
 					name="guess"
 					value={value}
-					className="w-full rounded-lg border border-cyan-500/25 bg-slate-800 px-4 py-3 text-lg text-slate-100 focus:border-fuchsia-400 focus:outline-none"
+					className="w-full rounded-lg border border-sky-400/25 bg-slate-800 px-4 py-3 text-lg text-slate-100 focus:border-sky-300 focus:outline-none"
 					placeholder="Movie name"
 					onChange={(event) => onChange(event.target.value)}
 				/>
 				<button
 					type="submit"
-					className="w-full rounded-lg bg-gradient-to-r from-cyan-500 to-fuchsia-500 px-4 py-3 text-lg font-semibold text-white shadow-[0_0_18px_rgba(0,255,255,0.25)] transition-transform hover:scale-[1.01]"
+					className="w-full rounded-lg bg-gradient-to-r from-sky-500 to-teal-500 px-4 py-3 text-lg font-semibold text-white shadow-[0_0_14px_rgba(56,189,248,0.15)] transition-transform hover:scale-[1.01]"
 				>
 					Guess
 				</button>

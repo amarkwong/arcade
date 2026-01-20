@@ -41,7 +41,8 @@ type ApiPuzzle = {
 };
 
 const randomColor = () => {
-	const palette = ["#22d3ee", "#a855f7", "#f472b6", "#f59e0b", "#06b6d4", "#10b981"];
+	// Low saturation, muted teal/slate palette
+	const palette = ["#64748b", "#78909c", "#607d8b", "#6b8fa3", "#5d8aa8", "#7ba3b8"];
 	return palette[Math.floor(Math.random() * palette.length)];
 };
 
@@ -276,9 +277,9 @@ const FilmojiGame: React.FC = () => {
 	);
 
 	return (
-		<div className="relative min-h-screen w-full bg-gradient-to-b from-slate-950 via-slate-900 to-black text-slate-50">
-			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,255,255,0.08),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(255,0,204,0.07),transparent_40%)]" />
-			<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:160px_160px] opacity-60" />
+		<div className="relative min-h-screen w-full bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800 text-slate-50">
+			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(56,189,248,0.08),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(71,85,105,0.1),transparent_50%)]" />
+			<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(148,163,184,0.03)_1px,transparent_1px),linear-gradient(0deg,rgba(148,163,184,0.03)_1px,transparent_1px)] bg-[size:160px_160px] opacity-60" />
 
 			<div className="px-6 py-6">
 				<Header playerName={playerName} onAddPuzzle={() => setIsCreateOpen(true)} />
@@ -331,7 +332,7 @@ const FilmojiGame: React.FC = () => {
 			/>
 
 			{snackbar ? (
-				<div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full border border-fuchsia-400/40 bg-slate-950/90 px-4 py-2 text-sm text-fuchsia-100 shadow-[0_0_20px_rgba(255,0,204,0.3)]">
+				<div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full border border-sky-400/30 bg-slate-800/90 px-4 py-2 text-sm text-sky-100 shadow-[0_0_16px_rgba(56,189,248,0.2)]">
 					{snackbar}
 				</div>
 			) : null}

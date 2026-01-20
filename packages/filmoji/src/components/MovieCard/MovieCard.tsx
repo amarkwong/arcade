@@ -50,25 +50,14 @@ const MovieCard: React.FC<MovieCardProps> = ({ emoji, poster, riddler, unlocked,
 	};
 
 	const background = unlocked
-		? firstEightSolvers
-			? firstEightSolvers.length === 1
-				? { backgroundColor: firstEightSolvers[0].color }
-				: {
-						background: `linear-gradient(to bottom, ${firstEightSolvers
-							?.map(
-								(solver, index) =>
-									`${solver.color} ${index === 0 ? 0 : FibFrac(index, firstEightSolvers.length)}%, ${solver.color} ${FibFrac(
-										index + 1,
-										firstEightSolvers.length,
-									)}%${index === firstEightSolvers.length - 1 ? ")" : ""}`,
-							)
-							.join(" ")}`,
-					}
-			: { background: "linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%)" }
+		? {
+				// Clean, muted teal/slate gradient for unlocked cards
+				background: "linear-gradient(145deg, #5d8aa8 0%, #475569 50%, #3b5268 100%)",
+			}
 		: {
 				background: `url("/lock.svg")`,
-				backgroundSize: "contain",
-				backgroundColor: "gray",
+				backgroundSize: "40%",
+				backgroundColor: "#64748b",
 				backgroundPosition: "center",
 				backgroundRepeat: "no-repeat",
 			};
@@ -92,26 +81,32 @@ const MovieCard: React.FC<MovieCardProps> = ({ emoji, poster, riddler, unlocked,
 					}}
 				>
 					<div className="flex h-full w-full flex-col items-center justify-center gap-3 px-4 text-center text-slate-100">
-						<span className="text-5xl leading-none">{emoji}</span>
-						{unlocked ? <p className="text-sm text-cyan-100">Created by {riddler}</p> : null}
+						<span className="text-5xl leading-none drop-shadow-md">{emoji}</span>
+						{unlocked ? <p className="text-sm text-sky-100/90">Created by {riddler}</p> : null}
 					</div>
 				</div>
 
 				<div
-					className="absolute flex h-full w-full items-center justify-center bg-white"
+					className="absolute flex h-full w-full items-center justify-center rounded-lg bg-slate-200"
 					style={{
 						backfaceVisibility: "hidden",
 						transform: "rotateY(180deg)",
 						zIndex: viewIndex === 1 ? 1 : 0,
 					}}
 				>
-					<Image
-						src={poster}
-						alt="Movie"
-						className="h-full w-full object-cover"
-						width={150}
-						height={226}
-					/>
+					{poster ? (
+						<Image
+							src={poster}
+							alt="Movie"
+							className="h-full w-full rounded-lg object-cover"
+							width={150}
+							height={226}
+						/>
+					) : (
+						<div className="flex h-full w-full items-center justify-center text-slate-400">
+							<span className="text-4xl">🎬</span>
+						</div>
+					)}
 				</div>
 			</div>
 		</motion.div>

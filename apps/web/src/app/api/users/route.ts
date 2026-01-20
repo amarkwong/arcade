@@ -30,7 +30,12 @@ export async function POST(request: NextRequest) {
 			.values({ name: trimmed })
 			.returning({ id: users.id, name: users.name });
 
-		return NextResponse.json(inserted[0]);
+		if (!inserted[0]) {
+			console.error("POST /api/users: insert returned empty result");
+			return NextResponse.json({ error: "Failed to create user" }, { status: 500 });
+		}
+
+		return NextResponse.json(inserted[0], { status: 201 });
 	} catch (error: unknown) {
 		const dbError = error as { code?: string };
 		// Handle unique constraint race condition: return existing if name already exists.

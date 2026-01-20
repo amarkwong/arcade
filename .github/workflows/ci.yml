@@ -41,11 +41,14 @@ jobs:
       - name: Build web
         run: npm run build --workspace web
 
-      # Uncomment to run Playwright e2e once they are stable/optional
-      # - name: Install Playwright browsers
-      #   run: npx playwright install --with-deps
-      # - name: E2E tests
-      #   run: npm run test:e2e --workspace web
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Start server and run E2E tests
+        run: |
+          npm run start --workspace web &
+          sleep 5
+          npm run test:e2e --workspace web
 
   deploy:
     runs-on: ubuntu-latest

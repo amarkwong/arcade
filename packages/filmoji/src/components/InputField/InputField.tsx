@@ -28,11 +28,11 @@ const InputField: React.FC<InputFieldProps> = ({
 	const inputType = type === "url" ? "url" : "text";
 
 	return (
-		<label className="block space-y-2 text-sm font-semibold text-cyan-100/90">
-			<span className="block text-xs tracking-[0.2em] text-cyan-300/80">{label}</span>
+		<label className="block space-y-2 text-sm font-semibold text-sky-100/90">
+			<span className="block text-xs tracking-[0.2em] text-sky-200/80">{label}</span>
 			<input
 				type={inputType}
-				className="w-full rounded-lg border border-cyan-400/40 bg-slate-800 px-3 py-2 text-slate-100 shadow-inner shadow-black/20 focus:border-fuchsia-400 focus:outline-none"
+				className="w-full rounded-lg border border-sky-400/30 bg-slate-700 px-3 py-2 text-slate-100 shadow-inner shadow-black/20 focus:border-sky-300 focus:outline-none"
 				placeholder={placeholder}
 				{...register(name)}
 				onBlur={onBlur}

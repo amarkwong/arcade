@@ -52,7 +52,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
 	return createPortal(
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
-			<div className="mx-4 w-full max-w-sm rounded-2xl bg-slate-900 p-6 text-slate-50 shadow-xl shadow-cyan-500/30">
+			<div className="mx-4 w-full max-w-sm rounded-2xl bg-slate-800 p-6 text-slate-50 shadow-xl shadow-sky-500/15">
 				<div className="flex items-center justify-between gap-3">
 					<h2 className="text-xl font-bold">Welcome to {gameName}</h2>
 					<button
@@ -72,10 +72,10 @@ const LoginModal: React.FC<LoginModalProps> = ({
 						onSubmit();
 					}}
 				>
-					<label className="block text-xs uppercase tracking-[0.2em] text-cyan-200/80">
+					<label className="block text-xs uppercase tracking-[0.2em] text-sky-200/80">
 						Player name
 						<input
-							className="mt-2 w-full rounded-lg border border-cyan-400/40 bg-slate-800 px-3 py-2 text-slate-100 focus:border-fuchsia-400 focus:outline-none"
+							className="mt-2 w-full rounded-lg border border-sky-400/30 bg-slate-700 px-3 py-2 text-slate-100 focus:border-sky-300 focus:outline-none"
 							value={playerName}
 							onChange={(e) => onPlayerNameChange(e.target.value)}
 							placeholder="Player name"
@@ -83,7 +83,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
 					</label>
 					<button
 						type="submit"
-						className="w-full rounded-lg bg-gradient-to-r from-cyan-500 to-fuchsia-500 px-4 py-2 font-semibold disabled:opacity-60"
+						className="w-full rounded-lg bg-gradient-to-r from-sky-500 to-teal-500 px-4 py-2 font-semibold disabled:opacity-60"
 						disabled={!playerName.trim()}
 					>
 						Start

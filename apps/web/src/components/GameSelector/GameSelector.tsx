@@ -67,13 +67,13 @@ export const GameSelector = () => {
 	const activeGame = games[activeIndex];
 
 	return (
-		<div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-black text-slate-50">
-			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,255,255,0.08),transparent_38%),radial-gradient(circle_at_80%_0%,rgba(255,0,204,0.07),transparent_40%)]" />
-			<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(0deg,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:160px_160px] opacity-60" />
+		<div className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-gradient-to-b from-slate-800 via-slate-700 to-slate-800 text-slate-50">
+			<div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(56,189,248,0.12),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(45,106,138,0.1),transparent_50%)]" />
+			<div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(148,163,184,0.03)_1px,transparent_1px),linear-gradient(0deg,rgba(148,163,184,0.03)_1px,transparent_1px)] bg-[size:160px_160px] opacity-60" />
 
 			<div className="relative mx-auto flex max-w-6xl flex-col items-center gap-10 px-6 py-8 md:py-12">
 				<header className="text-center space-y-4">
-					<h1 className="text-4xl font-black tracking-tight text-fuchsia-200 drop-shadow-[0_4px_20px_rgba(255,0,204,0.5)] md:text-5xl">
+					<h1 className="text-4xl font-black tracking-tight text-sky-200 drop-shadow-[0_4px_16px_rgba(56,189,248,0.3)] md:text-5xl">
 						Choose Your Game
 					</h1>
 				</header>
@@ -93,10 +93,10 @@ export const GameSelector = () => {
 					</div>
 
 					{activeGame ? (
-						<div className="flex items-center gap-3 rounded-full border border-cyan-400/40 bg-slate-900/70 px-4 py-2 text-xs tracking-[0.3em] text-cyan-100/90 shadow-[0_0_20px_rgba(0,255,255,0.25)]">
-							<span className="h-2 w-2 rounded-full bg-fuchsia-400 shadow-[0_0_12px_rgba(255,0,204,0.8)]" />
+						<div className="flex items-center gap-3 rounded-full border border-sky-400/30 bg-slate-700/70 px-4 py-2 text-xs tracking-[0.3em] text-sky-100/90 shadow-[0_0_16px_rgba(56,189,248,0.15)]">
+							<span className="h-2 w-2 rounded-full bg-sky-400 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
 							{activeGame.caption}
-							<span className="text-cyan-200/80">(Enter to launch)</span>
+							<span className="text-sky-200/70">(Enter to launch)</span>
 						</div>
 					) : null}
 				</div>
