@@ -7,7 +7,9 @@ test.describe("Game Selector", () => {
 
 		// Check all game slot buttons are visible using data-href attribute
 		await expect(page.locator('[data-href="/filmoji"]')).toBeVisible({ timeout: 10000 });
-		await expect(page.locator('[data-href="https://garticphone.com/"]')).toBeVisible({ timeout: 10000 });
+		await expect(page.locator('[data-href="https://garticphone.com/"]')).toBeVisible({
+			timeout: 10000,
+		});
 		await expect(page.locator('[data-href="https://skribbl.io/"]')).toBeVisible({ timeout: 10000 });
 	});
 

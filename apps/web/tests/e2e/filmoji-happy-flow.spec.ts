@@ -26,9 +26,12 @@ test.describe("Filmoji happy flow", () => {
 		// Seed a logged-in user so we skip the login modal
 		await page.context().clearCookies();
 		await page.goto("/");
-		await page.evaluate(([name]) => {
-			localStorage.setItem("filmoji-user", JSON.stringify({ id: 9999, name }));
-		}, [playerName]);
+		await page.evaluate(
+			([name]) => {
+				localStorage.setItem("filmoji-user", JSON.stringify({ id: 9999, name }));
+			},
+			[playerName],
+		);
 
 		// Visit filmoji directly
 		await page.goto("/filmoji");
@@ -45,9 +48,12 @@ test.describe("Filmoji happy flow", () => {
 	test("create puzzle form validation", async ({ page }) => {
 		// Seed a logged-in user
 		await page.goto("/");
-		await page.evaluate(([name]) => {
-			localStorage.setItem("filmoji-user", JSON.stringify({ id: 9999, name }));
-		}, [playerName]);
+		await page.evaluate(
+			([name]) => {
+				localStorage.setItem("filmoji-user", JSON.stringify({ id: 9999, name }));
+			},
+			[playerName],
+		);
 
 		await page.goto("/filmoji");
 		await page.waitForLoadState("networkidle");
@@ -72,9 +78,12 @@ test.describe("Filmoji happy flow", () => {
 	test("create puzzle successfully", async ({ page }) => {
 		// Seed a logged-in user
 		await page.goto("/");
-		await page.evaluate(([name]) => {
-			localStorage.setItem("filmoji-user", JSON.stringify({ id: 9999, name }));
-		}, [playerName]);
+		await page.evaluate(
+			([name]) => {
+				localStorage.setItem("filmoji-user", JSON.stringify({ id: 9999, name }));
+			},
+			[playerName],
+		);
 
 		await page.goto("/filmoji");
 		await page.waitForLoadState("networkidle");
@@ -101,9 +110,12 @@ test.describe("Filmoji happy flow", () => {
 	test("guess flow with existing puzzles", async ({ page }) => {
 		// Seed a logged-in user
 		await page.goto("/");
-		await page.evaluate(([name]) => {
-			localStorage.setItem("filmoji-user", JSON.stringify({ id: 9999, name }));
-		}, [playerName]);
+		await page.evaluate(
+			([name]) => {
+				localStorage.setItem("filmoji-user", JSON.stringify({ id: 9999, name }));
+			},
+			[playerName],
+		);
 
 		await page.goto("/filmoji");
 		await page.waitForLoadState("networkidle");
