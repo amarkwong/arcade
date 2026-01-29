@@ -50,6 +50,10 @@ jobs:
           sleep 5
           npm run test:e2e --workspace web
 
+      - name: Cleanup test data
+        if: always()
+        run: npm run test:cleanup --workspace web
+
   deploy:
     runs-on: ubuntu-latest
     needs: web
