@@ -17,7 +17,7 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: 1
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      OMDBAPI_KEY: ${{ secrets.OMDBAPI_KEY }}
+      OMDBAPI_KEY: ${{ secrets.OMDB_API_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -70,7 +70,7 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          OMDBAPI_KEY: ${{ secrets.OMDBAPI_KEY }}
+          OMDBAPI_KEY: ${{ secrets.OMDB_API_KEY }}
         run: |
           if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
             echo "Missing Vercel secrets (VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID)" >&2
