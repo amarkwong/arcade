@@ -17,7 +17,7 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: 1
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      OMDBAPI_KEY: ${{ secrets.OMDB_API_KEY }}
+      OMDBAPI_KEY: ${{ secrets.OMDBAPI_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
