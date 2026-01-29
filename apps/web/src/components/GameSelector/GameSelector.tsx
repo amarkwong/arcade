@@ -16,6 +16,11 @@ export const GameSelector = () => {
 				caption: "Filmoji",
 			},
 			{
+				href: "https://geopin.feifan.dev",
+				src: "/geopin.png",
+				caption: "GeoPin",
+			},
+			{
 				href: "https://garticphone.com/",
 				src: "https://garticphone.com/images/thumb.png",
 				caption: "Gartic Phone",
